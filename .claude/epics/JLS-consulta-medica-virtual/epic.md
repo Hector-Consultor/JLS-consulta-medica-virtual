@@ -4,7 +4,7 @@ status: backlog
 created: 2026-03-04T20:09:29Z
 progress: 0%
 prd: .claude/prds/JLS-consulta-medica-virtual.md
-github: [Will be updated when synced to GitHub]
+github: https://github.com/Hector-Consultor/JLS-consulta-medica-virtual/issues/1
 ---
 
 # Epic: JLS Consulta Médica Virtual
@@ -121,14 +121,21 @@ Apps Script expone un endpoint `doPost` que recibe el webhook de confirmación d
 
 ## Task Breakdown Preview
 
-- [ ] **TASK-1: Setup base** — Crear proyecto Apps Script, estructura de Sheets, Config.gs, permisos OAuth
-- [ ] **TASK-2: Disponibilidad y formulario de agendamiento** — CalendarService.gs, booking.html, SheetsService.gs (registro inicial)
-- [ ] **TASK-3: Integración pasarela de pago** — Pagos.gs, webhook doPost, creación evento Calendar con Meet, email de confirmación
-- [ ] **TASK-4: Flujo de cancelación** — Cancelaciones.gs, cancelacion.html, validación 24h, distinción paciente/médico, emails
-- [ ] **TASK-5: Recordatorios automáticos** — Recordatorios.gs, time-based trigger horario, emails 24h antes
-- [ ] **TASK-6: Página web (landing)** — Configurar plataforma elegida, contenido, CTA que enlaza al Web App de agendamiento
-- [ ] **TASK-7: Template informe post-consulta** — Google Docs template, carpeta Drive estructurada, instrucciones de uso
-- [ ] **TASK-8: QA y despliegue** — Testing end-to-end, sandbox de pagos, documentación operativa para el médico
+- [ ] **001.md — Setup base del proyecto Apps Script** (parallel: false) — 4-6h
+- [ ] **002.md — Disponibilidad y formulario de agendamiento** (parallel: false, depends: 001) — 8-12h
+- [ ] **003.md — Integración con pasarela de pago** (parallel: false, depends: 001, 002) — 12-16h 🔒 bloqueada
+- [ ] **004.md — Flujo de cancelación con validación 24h** (parallel: true, depends: 001, 003) — 8-10h
+- [ ] **005.md — Recordatorios automáticos 24h antes** (parallel: true, depends: 001, 003) — 4-6h
+- [ ] **006.md — Landing page del Dr. Salazar** (parallel: true, depends: 001) — 6-10h 🔒 bloqueada
+- [ ] **007.md — Template de informe post-consulta** (parallel: true, depends: 001) — 4-6h
+- [ ] **008.md — QA, testing end-to-end y despliegue** (parallel: false, depends: 001-007) — 8-12h
+
+## Tasks Summary
+Total tasks: 8
+Parallel tasks: 4 (004, 005, 006, 007)
+Sequential tasks: 4 (001, 002, 003, 008)
+Estimated total effort: 54-78h
+Critical path: 001 → 002 → 003 → 004/005 → 008
 
 ---
 
