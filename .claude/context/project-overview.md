@@ -1,56 +1,76 @@
 ---
 created: 2026-03-04T21:15:01Z
-last_updated: 2026-03-04T21:15:01Z
-version: 1.0
+last_updated: 2026-03-05T00:00:00Z
+version: 2.0
 author: Claude Code PM System
 ---
 
-# Project Overview — JLS Consulta Médica Virtual
+# Project Overview — Plataforma de Telemedicina Multi-Especialista
+
+> CAMBIO DE SCOPE (05/03/2026): El proyecto evoluciono de sistema unipersonal (Dr. Salazar) a plataforma de telemedicina multi-especialista operando en Colombia, Venezuela y Argentina.
 
 ## Resumen ejecutivo
 
-JLS Consulta Médica Virtual es una plataforma web de telemedicina autogestionada construida sobre Google Workspace + Apps Script. Permite al Dr. Juan Luis Salazar operar una práctica médica virtual sin consultorio físico ni personal administrativo, atendiendo pacientes de Colombia y Venezuela mediante videollamada.
+Plataforma web de telemedicina especializada construida sobre Google Workspace + Apps Script. Permite a multiples especialistas medicos ofrecer consultas virtuales a pacientes de Colombia, Venezuela y Argentina, con gestion automatizada de agenda, pagos con split automatico, confirmaciones y recordatorios.
 
-## Capacidades actuales (documentación completada, desarrollo pendiente)
+## Modelo de negocio
 
-### Sistema de agendamiento
-- Visualización de disponibilidad real (integrada con Google Calendar del médico)
+- **Antes (v1):** Sistema unipersonal para el Dr. Salazar — $0 comision de plataforma
+- **Ahora (v2):** Empresa/plataforma que conecta especialistas con pacientes — split de pagos entre especialista y plataforma (modelo TBD por el cliente)
+
+## Roles del sistema
+
+| Rol | Descripcion |
+|---|---|
+| Paciente | Agenda, paga y gestiona citas con cualquier especialista |
+| Especialista | Ofrece disponibilidad, realiza consultas, emite informes |
+| Administrador | Gestiona la plataforma, especialistas y configuracion |
+
+## Paises y normativa
+
+| Pais | Marco legal |
+|---|---|
+| Colombia | Ley 1419/2010 (telemedicina), Ley 1581/2012 (datos personales) |
+| Venezuela | Ley del Ejercicio de la Medicina |
+| Argentina | Ley 27.553/2020 (teleconsulta medica) |
+
+## Capacidades del sistema (v2 — documentadas, desarrollo pendiente)
+
+### Multi-especialista
+- Multiples calendarios (uno por especialista)
+- Perfil publico por especialista (especialidad, bio, tarifa, disponibilidad)
+- Dashboard del especialista para ver su agenda
+
+### Agendamiento
+- Visualizacion de disponibilidad por especialista (integrada con Google Calendar)
 - Formulario de registro de pacientes con validaciones
-- Política de no reembolso presentada y aceptada antes del pago
-- Registro en Google Sheets como base de datos central
+- Politica de no reembolso presentada antes del pago
 
-### Sistema de pagos
-- Integración con pasarela de pago (TBD: Wompi recomendado)
+### Pagos
+- Integracion con pasarela (TBD: Wompi u otra)
 - Soporte para COP y USD
-- Manejo de estados: pendiente / aprobado / rechazado
-- Confirmación solo tras pago aprobado
+- Split automatico de pagos entre especialista y plataforma
+- Estados: pendiente / aprobado / rechazado
 
-### Sistema de confirmación automática
-- Email al paciente (< 2 min post-pago): fecha/hora, link de Google Meet, link de cancelación
-- Email al médico: nueva cita confirmada con datos del paciente
-- Evento creado automáticamente en Google Calendar del médico con Meet link
+### Confirmaciones y recordatorios
+- Email al paciente post-pago con link Meet y link de cancelacion
+- Email al especialista con datos del paciente
+- Recordatorio 24h antes a paciente y especialista
+- Evento creado en Google Calendar del especialista con Meet link
 
-### Sistema de recordatorios
-- Trigger horario que detecta citas en ventana 24-25h
-- Email de recordatorio al paciente con link Meet y aviso de no cancelación
-- Email de recordatorio al médico con datos del paciente
+### Cancelacion
+- Link unico por cita (UUID)
+- Cancelacion por paciente: solo con 24h+ de anticipacion, sin reembolso
+- Cancelacion por especialista: notificacion al paciente con opciones de reembolso/reprogramacion
 
-### Sistema de cancelación
-- Link único e irrepetible por cita (UUID)
-- Validación server-side: solo permite cancelar con ≥ 24 horas de anticipación
-- Sin reembolso si cancela el paciente (política visible y aceptada al pagar)
-- Si cancela el médico: email al paciente con opción de reembolso o reprogramación
-- Diferenciación en Sheets: cancelado_paciente vs cancelado_medico
-
-### Sistema de informes post-consulta
-- Template estandarizado de Google Docs
+### Informes post-consulta
+- Template estandarizado de Google Docs por especialidad
 - Campos del paciente pre-llenados desde Sheets
-- Carpeta de archivo organizada por año/mes en Google Drive
-- Envío manual del informe por email al paciente (MVP)
+- Carpeta de archivo organizada en Google Drive
 
 ## Integraciones
 
-| Integración | Tipo | Estado |
+| Integracion | Tipo | Estado |
 |---|---|---|
 | Google Calendar | Nativa (Apps Script) | A implementar |
 | Google Sheets | Nativa (Apps Script) | A implementar |
@@ -58,29 +78,21 @@ JLS Consulta Médica Virtual es una plataforma web de telemedicina autogestionad
 | Google Meet | Via Calendar API | A implementar |
 | Google Drive | Nativa (Apps Script) | A implementar |
 | Google Docs | Nativa (Apps Script) | A implementar |
-| Pasarela de pago | Webhook HTTP POST | TBD (Wompi) |
-| Landing page | Link externo a Web App | TBD (plataforma) |
+| Pasarela de pago | Webhook HTTP POST + split | TBD |
+| Landing page / plataforma web | Link externo a Web App | TBD |
 
 ## Estado del proyecto por componente
 
-| Componente | Documentación | Desarrollo |
-|---|---|---|
-| PRD | ✅ Completo | — |
-| Epic técnico | ✅ Completo | — |
-| GitHub Issues | ✅ Creados (#1-#9) | — |
-| README.md | ✅ Completo | — |
-| Apps Script - Setup base | 📋 Especificado (issue #2) | ⏳ Pendiente |
-| Apps Script - Agendamiento | 📋 Especificado (issue #3) | ⏳ Pendiente |
-| Apps Script - Pagos | 📋 Especificado (issue #4) | 🔒 Bloqueado |
-| Apps Script - Cancelaciones | 📋 Especificado (issue #5) | ⏳ Pendiente |
-| Apps Script - Recordatorios | 📋 Especificado (issue #6) | ⏳ Pendiente |
-| Landing page | 📋 Especificado (issue #7) | 🔒 Bloqueado |
-| Template informe | 📋 Especificado (issue #8) | ⏳ Pendiente |
-| QA y despliegue | 📋 Especificado (issue #9) | 🔒 Bloqueado |
+| Componente | Estado |
+|---|---|
+| PRD v1.0 (modelo unipersonal) | Completo — reemplazado por v2.0 |
+| PRD v2.0 (multi-especialista) | Enviado al cliente para validacion (05/03/2026) |
+| Epic v1 (issues #1-#9) | En pausa — seran reemplazados |
+| README.md | Completo (desactualizado — refleja v1) |
+| Desarrollo | No iniciado |
 
 ## Repositorio GitHub
 
 - **URL:** https://github.com/Hector-Consultor/JLS-consulta-medica-virtual
-- **Epic issue:** https://github.com/Hector-Consultor/JLS-consulta-medica-virtual/issues/1
 - **Branch activo:** `main`
-- **Branch de desarrollo:** `epic/JLS-consulta-medica-virtual`
+- **Issues actuales:** #1-#9 (en pausa, pendientes de redefinicion)

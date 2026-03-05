@@ -1,11 +1,13 @@
 ---
 created: 2026-03-04T21:15:01Z
-last_updated: 2026-03-04T21:15:01Z
-version: 1.0
+last_updated: 2026-03-05T00:00:00Z
+version: 2.0
 author: Claude Code PM System
 ---
 
-# Tech Context — JLS Consulta Médica Virtual
+# Tech Context — Plataforma de Telemedicina Multi-Especialista
+
+> SCOPE v2.0 (05/03/2026): Arquitectura actualizada para soporte multi-especialista, multi-calendario y split de pagos.
 
 ## Stack tecnológico
 
@@ -71,19 +73,30 @@ author: Claude Code PM System
 - **Mercado:** Colombia (COP) y Venezuela (referencial USD)
 - **Regulación:** Resolución 2654/2019 Colombia + Ley del Ejercicio de la Medicina Venezuela
 
-## Variables de configuración (Config.gs)
+## Cambios arquitecturales v2 (multi-especialista)
+
+| Cambio | v1 (unipersonal) | v2 (plataforma) |
+|---|---|---|
+| Calendarios | 1 fijo | Uno por especialista (array de IDs) |
+| Hojas de Sheets | Sheet unico | Sheet maestro + tab por especialista |
+| Emails | Email fijo del medico | Email dinamico por especialista |
+| Tarifas | Tarifa unica | Tarifa por especialista + porcentaje plataforma |
+| Templates | Template unico | Template por especialidad |
+| Configuracion | CONFIG global | CONFIG global + CONFIG por especialista |
+
+## Variables de configuracion (Config.gs — v2)
 
 ```javascript
 const CONFIG = {
-  SHEET_ID: '',              // ID del Google Sheet maestro
-  CALENDAR_ID: '',           // ID del Google Calendar del médico
-  EMAIL_MEDICO: '',          // Email del Dr. Salazar
-  TARIFA_COP: 0,             // Tarifa en pesos colombianos (pendiente)
-  TARIFA_USD: 0,             // Tarifa en USD (pendiente)
-  HORAS_MIN_CANCELACION: 24, // Horas mínimas para cancelar/modificar
-  URL_WEB_APP: '',           // URL del Web App desplegado
-  TEMPLATE_INFORME_ID: '',   // ID del template de Google Docs
-  DRIVE_FOLDER_ID: '',       // ID de la carpeta raíz de informes en Drive
-  PASARELA_SECRET: '',       // Secreto para validar webhooks de la pasarela
+  SHEET_ID: '',                  // ID del Google Sheet maestro de la plataforma
+  HORAS_MIN_CANCELACION: 24,     // Horas minimas para cancelar/modificar
+  URL_WEB_APP: '',               // URL del Web App desplegado
+  DRIVE_FOLDER_ID: '',           // Carpeta raiz de informes en Drive
+  PASARELA_SECRET: '',           // Secreto para validar webhooks de la pasarela
+  PORCENTAJE_PLATAFORMA: 0,      // % de cada pago que retiene la plataforma (TBD)
+  EMAIL_ADMIN: '',               // Email del administrador de la plataforma
 };
+
+// Configuracion por especialista (fila en Sheet "Especialistas")
+// { id, nombre, email, calendar_id, tarifa_cop, tarifa_usd, template_informe_id, activo }
 ```

@@ -1,61 +1,65 @@
 ---
 created: 2026-03-04T21:15:01Z
-last_updated: 2026-03-04T21:15:01Z
-version: 1.0
+last_updated: 2026-03-05T00:00:00Z
+version: 2.0
 author: Claude Code PM System
 ---
 
-# Progress — JLS Consulta Médica Virtual
+# Progress — JLS Consulta Médica Virtual (ahora: Plataforma Multi-Especialista)
 
 ## Estado actual del proyecto
 
-**Fase:** Planificación completa / Inicio de desarrollo pendiente
+**Fase:** EN PAUSA — Cambio de scope. Esperando validacion del cliente.
 **Branch activo:** `main`
-**Worktree de epic:** `epic/JLS-consulta-medica-virtual`
+**Fecha de pausa:** 2026-03-05
+
+> CAMBIO DE SCOPE MAYOR (05/03/2026)
+> El proyecto paso de sistema unipersonal del Dr. Salazar a plataforma de telemedicina multi-especialista que opera en Colombia, Venezuela y Argentina. El PRD v2.0 fue enviado al cliente para validacion. Todas las tareas previas quedan en pausa hasta recibir respuestas.
 
 ## Trabajo completado
 
-### Documentación base
-- [x] PRD creado: `.claude/prds/JLS-consulta-medica-virtual.md`
-- [x] Epic técnico creado: `.claude/epics/JLS-consulta-medica-virtual/epic.md`
-- [x] README.md profesional en la raíz del proyecto
-- [x] 8 tareas técnicas descompuestas del epic
+### Documentacion base (v1 — modelo unipersonal)
+- [x] PRD v1.0: `.claude/prds/JLS-consulta-medica-virtual.md`
+- [x] Epic tecnico v1: `.claude/epics/JLS-consulta-medica-virtual/epic.md`
+- [x] README.md profesional en la raiz del proyecto
+- [x] 8 tareas tecnicas descompuestas del epic (issues #2-#9)
 
 ### GitHub
 - [x] Repositorio: `Hector-Consultor/JLS-consulta-medica-virtual`
-- [x] Epic issue #1 creado en GitHub
-- [x] 8 issues de tareas creados (#2 al #9) con labels `task` y `epic:JLS-consulta-medica-virtual`
-- [x] Archivo de mapeo creado: `.claude/epics/JLS-consulta-medica-virtual/github-mapping.md`
+- [x] Epic issue #1 y tareas #2-#9 creados con labels
 
-### Commits recientes
+### Hito 05/03/2026 — Cambio de scope
+- [x] PRD v2.0 elaborado con nuevo modelo multi-especialista
+- [x] PRD v2.0 enviado al cliente para validacion
+
+## Esperando respuestas del cliente
+
+El cliente debe definir:
+1. **Nombre comercial** de la plataforma
+2. **Pasarela de pago** y modelo de split entre especialistas y plataforma
+3. **Cantidad de especialistas** en el MVP
+4. **Fases de lanzamiento por pais** (Colombia / Venezuela / Argentina)
+5. **Modelo de distribucion** de pagos (porcentaje plataforma / especialista)
+
+## Proximos pasos (cuando el cliente valide el PRD v2.0)
+
 ```
-191aeb9  epic descompuesto y sincronizado con GitHub Issues
-e185f37  agrego README profesional
-b4163b8  primer commit - PRD y Epic JLS consulta médica virtual
+/pm:prd-edit        -> ajustar PRD con respuestas del cliente
+/pm:prd-parse       -> parsear PRD actualizado
+/pm:epic-decompose  -> regenerar epic con nuevo scope
+/pm:epic-sync       -> sincronizar con GitHub Issues
 ```
 
-## Próximos pasos inmediatos
+## Estado de issues en GitHub (todos EN PAUSA)
 
-### Decisiones bloqueantes del cliente (Dr. Salazar)
-1. **Pasarela de pago** → desbloquea issue #4 (Integración con pasarela de pago)
-2. **Plataforma web** (Sites / Wix / Carrd / Netlify) → desbloquea issue #7 (Landing page)
-3. **Tarifa de consulta** en COP y/o USD
-
-### Tareas disponibles para iniciar (no bloqueadas)
-- **#2** — Setup base del proyecto Apps Script ← **primera tarea a iniciar**
-- **#3** — Disponibilidad y formulario de agendamiento (después de #2)
-- **#8** — Template de informe post-consulta (paralela, no bloqueada)
-
-## Estado de issues en GitHub
-
-| Issue | Título | Estado | Bloqueado |
+| Issue | Titulo | Estado | Nota |
 |---|---|---|---|
-| #1 | Epic: JLS Consulta Médica Virtual | OPEN | — |
-| #2 | Setup base del proyecto Apps Script | OPEN | No |
-| #3 | Disponibilidad y formulario de agendamiento | OPEN | No (→ #2) |
-| #4 | Integración con pasarela de pago | OPEN | Sí (pasarela) |
-| #5 | Flujo de cancelación con validación 24h | OPEN | No (→ #4) |
-| #6 | Recordatorios automáticos 24h antes | OPEN | No (→ #4) |
-| #7 | Landing page del Dr. Salazar | OPEN | Sí (plataforma) |
-| #8 | Template de informe post-consulta | OPEN | No |
-| #9 | QA, testing end-to-end y despliegue | OPEN | Sí (→ todos) |
+| #1 | Epic: JLS Consulta Medica Virtual | OPEN | Sera reemplazado por nuevo epic multi-especialista |
+| #2 | Setup base del proyecto Apps Script | OPEN | En pausa |
+| #3 | Disponibilidad y formulario de agendamiento | OPEN | En pausa |
+| #4 | Integracion con pasarela de pago | OPEN | En pausa |
+| #5 | Flujo de cancelacion con validacion 24h | OPEN | En pausa |
+| #6 | Recordatorios automaticos 24h antes | OPEN | En pausa |
+| #7 | Landing page del Dr. Salazar | OPEN | En pausa (scope cambia radicalmente) |
+| #8 | Template de informe post-consulta | OPEN | En pausa |
+| #9 | QA, testing end-to-end y despliegue | OPEN | En pausa |

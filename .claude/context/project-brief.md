@@ -1,86 +1,91 @@
 ---
 created: 2026-03-04T21:15:01Z
-last_updated: 2026-03-04T21:15:01Z
-version: 1.0
+last_updated: 2026-03-05T00:00:00Z
+version: 2.0
 author: Claude Code PM System
 ---
 
-# Project Brief — JLS Consulta Médica Virtual
+# Project Brief — Plataforma de Telemedicina Multi-Especialista
 
-## ¿Qué es?
+> NOTA: Este brief refleja el scope v2.0 definido el 05/03/2026. La v1.0 era un sistema unipersonal para el Dr. Juan Luis Salazar. El cambio de scope fue solicitado por el cliente.
 
-Sistema de consulta médica virtual autogestionado para el Dr. Juan Luis Salazar, Médico Internista Especialista con práctica privada unipersonal. Permite a pacientes de Colombia y Venezuela agendar, pagar y gestionar citas médicas por videollamada sin intermediarios.
+## Que es?
 
-## ¿Por qué existe?
+Plataforma de telemedicina especializada que conecta pacientes de Colombia, Venezuela y Argentina con multiples especialistas medicos. Permite agendar, pagar y gestionar consultas virtuales via Google Meet, con gestion automatizada end-to-end sin intervencion de staff administrativo.
 
-El Dr. Salazar no dispone de consultorio físico ni staff administrativo. La gestión manual de turnos (WhatsApp, email) era ineficiente y no escalable. Se necesitaba un sistema que:
+## Por que existe?
 
-1. Funcionara 24/7 sin intervención del médico para confirmar turnos
-2. Garantizara el cobro previo a la consulta
-3. Integrara automáticamente la videollamada (Google Meet)
-4. Aprovechara la infraestructura Google Workspace ya disponible (costo = $0)
+El modelo unipersonal inicial (solo Dr. Salazar) no escalaba. El cliente identifico la oportunidad de construir una plataforma que:
 
-## Alcance del MVP
+1. Permita a multiples especialistas ofrecer sus servicios sin infraestructura propia
+2. Automatice completamente la gestion de turnos, cobros y confirmaciones
+3. Opere en 3 paises con sus respectivos marcos legales
+4. Genere ingresos a la plataforma via split de pagos con especialistas
 
-### Incluido
-- Página web pública con información del médico y CTA de agendamiento
-- Calendario de disponibilidad en tiempo real (integrado con Google Calendar)
-- Formulario de agendamiento con validaciones
-- Aceptación obligatoria de política de no reembolso
-- Pago online (COP/USD via pasarela a definir)
-- Confirmación automática por email con link de Google Meet único
-- Recordatorio automático 24h antes (paciente y médico)
-- Cancelación autónoma por paciente (≥ 24h, sin reembolso)
-- Cancelación por médico con oferta de reembolso/reprogramación
-- Restricción: sin cancelación ni modificación con < 24h de anticipación
-- Registro de citas en Google Sheets
-- Template de informe de recomendaciones post-consulta (Google Docs)
+## Cambio de scope (v1 vs v2)
 
-### Excluido explícitamente
-- Recetas digitales o prescripciones
-- Historia clínica electrónica
-- Portal del paciente (login, historial)
-- App móvil nativa
-- Múltiples médicos
-- Integración con seguros médicos
-- Facturación electrónica
-- Recordatorios SMS
+| Dimension | v1 (unipersonal) | v2 (plataforma) |
+|---|---|---|
+| Especialistas | 1 (Dr. Salazar) | Multiples |
+| Paises | Colombia + Venezuela | + Argentina |
+| Roles | Paciente + Medico | + Especialista + Administrador |
+| Calendarios | 1 | Uno por especialista |
+| Pagos | Tarifa fija al medico | Split plataforma/especialista |
+| Normativa | 2 marcos legales | 3 marcos legales |
+| Landing | Pagina del Dr. Salazar | Plataforma con directorio de especialistas |
 
-## Stack tecnológico
+## Stack tecnologico (sin cambios)
 
-- **Backend:** Google Apps Script (único orquestador)
+- **Backend:** Google Apps Script (orquestador)
 - **Base de datos:** Google Sheets
-- **Agenda:** Google Calendar
+- **Agenda:** Google Calendar (multi-calendario)
 - **Videollamada:** Google Meet (via Calendar API)
 - **Emails:** Gmail via Apps Script
 - **Documentos:** Google Docs + Google Drive
-- **Frontend:** Plataforma web TBD + Apps Script HTML Service
-- **Pagos:** Pasarela TBD (Wompi recomendado)
+- **Frontend:** Apps Script HTML Service + Plataforma web TBD
+- **Pagos:** Pasarela TBD con soporte para split de pagos
 
 ## Mercado objetivo
 
-- 🇨🇴 Colombia — Resolución 2654/2019 (telemedicina), Ley 1581/2012 (datos personales)
-- 🇻🇪 Venezuela — Ley del Ejercicio de la Medicina (validación pendiente con Colegio Médico)
+- Colombia — Ley 1419/2010 (telemedicina), Ley 1581/2012 (datos personales)
+- Venezuela — Ley del Ejercicio de la Medicina
+- Argentina — Ley 27.553/2020 (teleconsulta medica)
 
-## Criterios de éxito
+## Alcance del MVP v2 (pendiente de definicion final con el cliente)
 
-| Criterio | Definición de éxito |
-|---|---|
-| Operativo | El médico no interviene manualmente en ningún turno confirmado |
-| Técnico | 0 errores en flujo crítico (agendamiento + confirmación) |
-| Negocio | ≥ 10 consultas pagadas en el primer mes |
-| Calidad | Email de confirmación en < 2 minutos post-pago |
+### Incluido (preliminar)
+- Directorio de especialistas con perfiles publicos
+- Agendamiento por especialista con calendario en tiempo real
+- Pago online con split automatico plataforma/especialista
+- Confirmacion automatica por email con link de Google Meet
+- Recordatorio automatico 24h antes
+- Cancelacion autonoma por paciente (24h+, sin reembolso)
+- Cancelacion por especialista con reembolso/reprogramacion
+- Dashboard de administrador (gestion de especialistas y citas)
+- Template de informe post-consulta por especialidad
 
-## Dependencias críticas (bloqueantes)
+### Excluido explicitamente (heredado de v1)
+- Recetas digitales o prescripciones
+- Historia clinica electronica
+- Portal del paciente con login e historial
+- App movil nativa
+- Integracion con seguros medicos
+- Facturacion electronica
+- Recordatorios SMS
 
-1. **Pasarela de pago seleccionada** — sin esto no se puede desarrollar el módulo de pagos
-2. **Plataforma web seleccionada** — sin esto no se puede desarrollar la landing page
-3. **Tarifa de consulta definida** — sin esto no se puede configurar la pasarela
+## Decisiones pendientes del cliente (bloquean el desarrollo)
+
+1. Nombre comercial de la plataforma
+2. Pasarela de pago seleccionada
+3. Modelo de distribucion de pagos (% plataforma / % especialista)
+4. Cantidad de especialistas en MVP y especialidades
+5. Fases de lanzamiento por pais (orden y calendario)
 
 ## Stakeholders
 
 | Rol | Persona | Responsabilidad |
 |---|---|---|
-| Cliente / Product Owner | Dr. Juan Luis Salazar | Decisiones de negocio, validación, operación |
-| Desarrollador | Héctor González | Implementación, arquitectura |
-| Usuarios finales | Pacientes Colombia / Venezuela | Uso del sistema |
+| Cliente / Product Owner | Dr. Juan Luis Salazar | Decisiones de negocio, validacion del PRD v2.0 |
+| Desarrollador | Hector Gonzalez | Implementacion, arquitectura |
+| Especialistas | A definir | Uso del sistema como proveedores de consultas |
+| Pacientes | Colombia / Venezuela / Argentina | Uso del sistema como consumidores |
