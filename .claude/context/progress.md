@@ -50,6 +50,19 @@ El cliente debe definir:
 /pm:epic-sync       -> sincronizar con GitHub Issues
 ```
 
+## Herramientas reservadas para cuando haya código
+
+Evaluadas en `claude-config` y reservadas para este proyecto. Ninguna está instalada todavía.
+Ficha completa en `hg-knowledge-base/03-proyectos/claude-config/stack-inventory.md`.
+
+| Herramienta | Cuándo | Cómo | Antes de usarla |
+|---|---|---|---|
+| **claude-code-setup** (plugin oficial de Anthropic) | Al arrancar el desarrollo | `/plugin install claude-code-setup@claude-plugins-official` y pedir "recommend automations for this project" | Nada: es de solo lectura |
+| **Strix** (`usestrix/strix`, pentesting con IA) | Antes de lanzar a producción (datos de salud y pagos) | `npx skills add usestrix/strix` + CLI `strix`. Probar contra el Web App desplegado (black-box) y el código `.gs` (white-box) | Necesita Docker (no instalado) y una API key de LLM que se paga por token. Confirmar el techo de gasto y probar primero con un modelo gratuito de NVIDIA vía LiteLLM. Correrlo sobre un checkout limpio: monta la carpeta con permiso de escritura |
+| **ECC** (`affaan-m/ECC`): `healthcare-reviewer` + `security-review` + `tdd-workflow` | Si se construye con código | Piezas sueltas, siempre en scope de proyecto, nunca el plugin entero | Ver la memoria `ecc-cosecha-selectiva` |
+
+Decisiones del 2026-09-25 (ECC) y del 2026-09-30 (Strix y claude-code-setup).
+
 ## Estado de issues en GitHub (todos EN PAUSA)
 
 | Issue | Titulo | Estado | Nota |
